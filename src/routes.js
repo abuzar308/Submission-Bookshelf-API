@@ -1,3 +1,4 @@
+// const Joi = require('joi');
 const {
   addBooksHandler,
   getBooksHandler,
@@ -5,12 +6,18 @@ const {
   putBooksHandler,
   deleteBooksHandler,
 } = require('./handler');
+const schema = require('./validate');
 
 const routes = [
   {
     method: 'POST',
     path: '/books',
     handler: addBooksHandler,
+    options: {
+      validate: {
+        payload: schema,
+      },
+    },
   },
   {
     method: 'GET',
@@ -26,6 +33,11 @@ const routes = [
     method: 'PUT',
     path: '/books/{bookId}',
     handler: putBooksHandler,
+    options: {
+      validate: {
+        payload: schema,
+      },
+    },
   },
   {
     method: 'DELETE',
